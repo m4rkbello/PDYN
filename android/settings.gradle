@@ -1,6 +1,20 @@
-pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
-plugins { id("com.facebook.react.settings") }
-extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
+pluginManagement {
+    repositories {
+        google() // ✅ Add this
+        gradlePluginPortal()
+        mavenCentral()
+    }
+    includeBuild("../node_modules/@react-native/gradle-plugin")
+}
+
+plugins {
+    id "com.facebook.react.settings"
+}
+
+extensions.configure(com.facebook.react.ReactSettingsExtension) {
+    it.autolinkLibrariesFromCommand()
+}
+
 rootProject.name = 'PDYN'
 include ':app'
 includeBuild('../node_modules/@react-native/gradle-plugin')

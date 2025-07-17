@@ -11,3 +11,10 @@
 ->npm install nativewind
 ->npm install --save-dev tailwindcss
 ->npx tailwindcss init
+
+5. INSTALL DRAWERS AS SIDEBAR 
+->npm install @react-navigation/drawer react-native-gesture-handler react-native-reanimated react-native-safe-area-context react-native-screens
+
+6. INSTALL REACT NATIVE AND FIREBASE APP
+->npm install @react-native-firebase/app
+->npm install @react-native-firebase/firestore
