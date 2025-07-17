@@ -1,0 +1,13 @@
+1. INSTALL THE PROJECT FILE CREATOR OF REACT NATIVE
+->npx @react-native-community/cli init PANGAN SA FOLDER
+
+2.INSTALL FIREBASE CONNECTION
+->npm install @react-native-firebase/app @react-native-firebase/auth
+
+3. INSTALL THIS IMPORANT NAVIGATION, REACT NATIVE SCREENS AND MORE
+->npm install @react-navigation/native @react-navigation/native-stack react-native-screens react-native-safe-area-context react-native-gesture-handler react-native-reanimated
+
+4. INSTALL NATIVE WIND AND TAILWIND
+->npm install nativewind
+->npm install --save-dev tailwindcss
+->npx tailwindcss init
