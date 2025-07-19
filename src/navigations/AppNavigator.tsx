@@ -25,7 +25,7 @@ const DrawerNavigator = () => {
 };
 
 export default function AppNavigator() {
-    const { user } = useAuth();
+    const { user } = useAuth(); // called inside functional component
 
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
