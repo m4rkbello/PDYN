@@ -12,17 +12,42 @@ import {
     Dimensions,
     Image,
 } from 'react-native';
-import { loginUser } from '../services/firebase';
+import { useNavigation } from '@react-navigation/native';
+import { loginUser } from '../../services/firebase';
 import Toast from 'react-native-toast-message';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
-export default function LoginScreen({ navigation }) {
+const LoginScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigation = useNavigation();
 
     const handleLogin = async () => {
         try {
             await loginUser(email, password);
-            Toast.show({ type: 'success', text1: 'Welcome back!' });
+
+            const currentUser = auth().currentUser;
+
+            if (currentUser) {
+                const doc = await firestore().collection('users').doc(currentUser.uid).get();
+
+                if (!doc.exists) {
+                    throw new Error('User profile does not exist or Firestore permission denied.');
+                }
+
+                const userProfile = doc.data();
+                const userName = userProfile?.firstName || currentUser.email || 'User';
+
+                Toast.show({
+                    type: 'success',
+                    text1: `Welcome back, ${userName}!`,
+                });
+            } else {
+                Toast.show({ type: 'success', text1: 'Welcome back!' });
+            }
+
+            navigation.replace('Main'); // Replace with your actual main screen name
         } catch (err) {
             Toast.show({
                 type: 'error',
@@ -41,7 +66,7 @@ export default function LoginScreen({ navigation }) {
                 >
                     {/* ✅ LOGO */}
                     <Image
-                        source={require('../assets/haha.png')} // Replace with correct path
+                        source={require('../../assets/haha.png')} // Replace with actual image path
                         style={styles.logo}
                         resizeMode="contain"
                     />
@@ -69,14 +94,17 @@ export default function LoginScreen({ navigation }) {
                         <Button title="Login" onPress={handleLogin} />
                     </View>
 
-                    <Text style={styles.registerText} onPress={() => navigation.navigate('Register')}>
+                    <Text
+                        style={styles.registerText}
+                        onPress={() => navigation.navigate('Register')}
+                    >
                         No account? Register
                     </Text>
                 </KeyboardAvoidingView>
             </ScrollView>
         </SafeAreaView>
     );
-}
+};
 
 const { width } = Dimensions.get('window');
 
@@ -95,8 +123,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     logo: {
-        width: width * 0.5,      // 50% of screen width
-        height: width * 0.5,     // same as width to make it square
+        width: width * 0.5,
+        height: width * 0.5,
         alignSelf: 'center',
         marginBottom: 20,
     },
@@ -124,3 +152,5 @@ const styles = StyleSheet.create({
         color: 'blue',
     },
 });
+
+export default LoginScreen;

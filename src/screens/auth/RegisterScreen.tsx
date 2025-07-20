@@ -12,7 +12,7 @@ import {
     Dimensions,
     TouchableOpacity,
 } from 'react-native';
-import { registerUser } from '../services/firebase';
+import { registerUser } from '../../services/firebase';
 import { Timestamp } from '@react-native-firebase/firestore';
 import Toast from 'react-native-toast-message';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -27,9 +27,13 @@ export default function RegisterScreen({ navigation }) {
     const [contactNo, setContactNo] = useState('');
     const [work, setWork] = useState('');
     const [birthDate, setBirthDate] = useState(new Date());
+    const [status, setStatus] = useState('');
     const [showPicker, setShowPicker] = useState(false);
 
     const handleRegister = async () => {
+        const defaultStatus = 1;    // or use '1'
+        const defaultUserType = 1;  // or use '1'
+
         const profileData = {
             email,
             firstName,
@@ -39,6 +43,8 @@ export default function RegisterScreen({ navigation }) {
             contactNo,
             birthday: Timestamp.fromDate(birthDate),
             work,
+            status: defaultStatus,
+            userType: defaultUserType,
         };
 
         try {
@@ -50,6 +56,7 @@ export default function RegisterScreen({ navigation }) {
         }
     };
 
+
     return (
         <SafeAreaView style={styles.safeArea}>
             <ScrollView contentContainerStyle={styles.scrollView}>
@@ -59,7 +66,6 @@ export default function RegisterScreen({ navigation }) {
                 >
                     <Text style={styles.title}>Register</Text>
 
-                    {/* 🌐 Basic Inputs */}
                     <TextInput placeholder="Email" onChangeText={setEmail} value={email} style={styles.input} />
                     <TextInput placeholder="Password" secureTextEntry onChangeText={setPassword} value={password} style={styles.input} />
                     <TextInput placeholder="First Name" onChangeText={setFirstName} value={firstName} style={styles.input} />
@@ -86,6 +92,7 @@ export default function RegisterScreen({ navigation }) {
                             maximumDate={new Date()}
                         />
                     )}
+                    <TextInput placeholder="Status" onChangeText={setWork} value={work} style={styles.input} />
 
                     {/* 🎯 Register Button */}
                     <View style={styles.buttonContainer}>
