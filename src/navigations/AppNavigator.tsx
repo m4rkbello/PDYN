@@ -5,6 +5,7 @@ import DashboardScreen from '../screens/DashboardScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import LoginScreen from '../screens/LoginScreen';
+import RegisterScreen from '../screens/RegisterScreen';
 import { useAuth } from '../context/AuthContext';
 
 const Stack = createNativeStackNavigator();
@@ -25,15 +26,20 @@ const DrawerNavigator = () => {
 };
 
 export default function AppNavigator() {
-    const { user } = useAuth(); // called inside functional component
+    const { user } = useAuth();
 
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             {user ? (
                 <Stack.Screen name="Main" component={DrawerNavigator} />
             ) : (
-                <Stack.Screen name="Login" component={LoginScreen} />
+                <>
+                    <Stack.Screen name="Login" component={LoginScreen} />
+                    <Stack.Screen name="Register" component={RegisterScreen} />
+                </>
             )}
+
+
         </Stack.Navigator>
     );
 }
