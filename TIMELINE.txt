@@ -18,3 +18,5 @@
 6. INSTALL REACT NATIVE AND FIREBASE APP
 ->npm install @react-native-firebase/app
 ->npm install @react-native-firebase/firestore
+
+7.

@@ -10,8 +10,10 @@ import {
     KeyboardAvoidingView,
     Platform,
     Dimensions,
+    Image,
 } from 'react-native';
 import { loginUser } from '../services/firebase';
+import Toast from 'react-native-toast-message';
 
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState('');
@@ -20,8 +22,13 @@ export default function LoginScreen({ navigation }) {
     const handleLogin = async () => {
         try {
             await loginUser(email, password);
+            Toast.show({ type: 'success', text1: 'Welcome back!' });
         } catch (err) {
-            console.error(err);
+            Toast.show({
+                type: 'error',
+                text1: 'Login failed',
+                text2: err.message,
+            });
         }
     };
 
@@ -32,7 +39,14 @@ export default function LoginScreen({ navigation }) {
                     behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                     style={styles.container}
                 >
-                    <Text style={styles.title}>Login</Text>
+                    {/* ✅ LOGO */}
+                    <Image
+                        source={require('../assets/haha.png')} // Replace with correct path
+                        style={styles.logo}
+                        resizeMode="contain"
+                    />
+
+                    <Text style={styles.title}>OUHAHAY</Text>
 
                     <TextInput
                         placeholder="Email"
@@ -79,6 +93,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
+    },
+    logo: {
+        width: width * 0.5,      // 50% of screen width
+        height: width * 0.5,     // same as width to make it square
+        alignSelf: 'center',
+        marginBottom: 20,
     },
     title: {
         fontSize: 28,
