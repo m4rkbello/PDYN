@@ -39,23 +39,17 @@ const LoginScreen = () => {
                 const userProfile = doc.data();
                 const userName = userProfile?.firstName || currentUser.email || 'User';
 
-                Toast.show({
-                    type: 'success',
-                    text1: `Welcome back, ${userName}!`,
-                });
+                console.log(`Welcome back, ${userName}!`);
             } else {
-                Toast.show({ type: 'success', text1: 'Welcome back!' });
+                console.log('Welcome back!');
             }
 
-            navigation.replace('Main'); // Replace with your actual main screen name
+            navigation.replace('Main');
         } catch (err) {
-            Toast.show({
-                type: 'error',
-                text1: 'Login failed',
-                text2: err.message,
-            });
+            console.error('Login failed:', err.message);
         }
     };
+
 
     return (
         <SafeAreaView style={styles.safeArea}>

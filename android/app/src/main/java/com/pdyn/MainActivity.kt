@@ -10,8 +10,8 @@ import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView
 class MainActivity : ReactActivity() {
     override fun getMainComponentName(): String = "PDYN"
 
-    override fun createReactActivityDelegate(): ReactActivityDelegate =
-        DefaultReactActivityDelegate(
+    override fun createReactActivityDelegate(): ReactActivityDelegate {
+        return object : DefaultReactActivityDelegate(
             this,
             mainComponentName,
             DefaultNewArchitectureEntryPoint.fabricEnabled
@@ -20,6 +20,7 @@ class MainActivity : ReactActivity() {
                 return RNGestureHandlerEnabledRootView(this@MainActivity)
             }
         }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(null)
