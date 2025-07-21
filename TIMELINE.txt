@@ -19,4 +19,24 @@
 ->npm install @react-native-firebase/app
 ->npm install @react-native-firebase/firestore
 
-7.
+7.FILE APP ASSEMBLE 
+# Remove node_modules and clean
+rm -rf node_modules
+rm -rf android/app/build
+rm -rf android/build
+rm -rf android/.cxx
+rm -rf android/app/.cxx
+rm -rf android/app/build/generated
+rm -rf .gradle
+
+# Clear caches
+npm cache clean --force
+watchman watch-del-all
+
+# Reinstall
+npm install
+cd android && ./gradlew clean
+cd ..
+
+# Rebuild the project
+npx react-native run-android
