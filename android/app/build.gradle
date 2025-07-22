@@ -5,6 +5,10 @@ plugins {
     id 'com.facebook.react'
 }
 
+project.ext.react = [
+    enableHermes: true
+]
+
 react {
     autolinkLibrariesWithApp()
 }
