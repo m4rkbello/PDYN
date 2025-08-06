@@ -12,6 +12,7 @@ export const registerUser = async (
     email: string,
     password: string,
     profileData: Record<string, any>
+
 ) => {
     const userCredential = await firebaseAuth.createUserWithEmailAndPassword(email, password);
     const { uid } = userCredential.user;
